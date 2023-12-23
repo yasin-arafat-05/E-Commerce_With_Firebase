@@ -1,8 +1,11 @@
 import 'package:eapp/constants/asset_images.dart';
+import 'package:eapp/screens/auth_ui/login/login.dart';
+import 'package:eapp/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:eapp/widgets/primary_buttion/primary_buttion.dart';
 import 'package:eapp/widgets/top_title/top_titles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:eapp/constants/routes.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -18,12 +21,12 @@ class Welcome extends StatelessWidget {
             //-------------------------Title and Subtitle----------------------
             const TopTitles(
               title: "Welcome",
-              subtitile: "To our YAKULU e-commerce app",
+              subtitile: "To our Blink e-commerce app",
             ),
             //-------------------------WelcomeImage----------------------
             Center(
               child: Image.asset(
-                AssectImages.instance.welcomeImage,
+                AssectImages.instance.blingLogo,
                 width: 250.0,
                 height: 350.0,
               ),
@@ -51,21 +54,25 @@ class Welcome extends StatelessWidget {
                 ),
               ],
             ),
-            //-------------------------LogIN Button----------------------
+            //-------------------------Log in  Button----------------------
             const SizedBox(
               height: 20,
             ),
             PrimaryButtion(
               title: "Login",
-              onPressed: () {},
+              onPressed: () {
+                Routes.instance.push(const LogIn(), context);
+              },
             ),
-            //-------------------------LogIN Button----------------------
+            //-------------------------Sign Up Button----------------------
             const SizedBox(
               height: 20,
             ),
             PrimaryButtion(
               title: "Sing Up",
-              onPressed: () {},
+              onPressed: () {
+                Routes.instance.push(const SignUp(), context);
+              },
             ),
           ],
         ),

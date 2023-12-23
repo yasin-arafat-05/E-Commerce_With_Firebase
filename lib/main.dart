@@ -1,6 +1,5 @@
 import 'package:eapp/constants/theme.dart';
 import 'package:eapp/screens/auth_ui/welcome/welcome.dart';
-import 'package:eapp/screens/auth_ui/login/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'YAKULU',
       theme: themeData,
-      home: const LogIn(),
+      home: const Welcome(),
     );
   }
 }

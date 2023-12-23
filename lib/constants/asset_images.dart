@@ -8,4 +8,5 @@ class AssectImages {
   //------------------------image name-------------------
   final String welcomeImage = "$_imagesPath/welcome.png";
   final String googleLogo = "$_imagesPath/googleLogo.png";
+  final String blingLogo = "$_imagesPath/blink.png";
 }

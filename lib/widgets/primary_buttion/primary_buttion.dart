@@ -14,7 +14,6 @@ class PrimaryButtion extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: onPressed,
-
         //null sefty! title!
         child: Text(title!),
       ),
