@@ -1,4 +1,4 @@
-import 'package:eapp/screens/auth_ui/login/login.dart';
+import 'package:eapp/screens/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eapp/widgets/top_title/top_titles.dart';
@@ -96,8 +96,10 @@ class _SignUpState extends State<SignUp> {
               ),
               //-----------------------Submit Button ---------------------
               PrimaryButtion(
-                title: "Submit",
-                onPressed: () {},
+                title: "Create an account",
+                onPressed: () {
+                  Routes.instance.pushAndRemoveUntill(const Home(), context);
+                },
               ),
               //--------------------------don't have an account or bla bla-----------
               const SizedBox(
@@ -109,7 +111,7 @@ class _SignUpState extends State<SignUp> {
               Center(
                 child: CupertinoButton(
                   onPressed: () {
-                    Routes.instance.push(const LogIn(), context);
+                    Navigator.of(context).pop();
                   },
                   child: const Text("Login"),
                 ),
