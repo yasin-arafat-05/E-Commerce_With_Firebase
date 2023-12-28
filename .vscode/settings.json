@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "/home/yasin/allProgram/font_ecom_FireBase/E-Commerce_With_Firebase/linux"
+    "cmake.sourceDirectory": "/home/yasin/allProgram/font_ecom_FireBase/E-Commerce_With_Firebase/linux",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

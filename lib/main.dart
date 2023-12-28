@@ -1,8 +1,20 @@
 import 'package:eapp/constants/theme.dart';
 import 'package:eapp/screens/auth_ui/welcome/welcome.dart';
+import 'package:eapp/screens/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:eapp/firebase_helper/firebase_auth/firebase_authelpter.dart';
 
-void main() {
+//firebase connection
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  // use await in main function that's why we should use it.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -15,7 +27,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'YAKULU',
       theme: themeData,
-      home: const Welcome(),
+      //After login if a user get out from the app StreamBuilder
+      // helps to login the app when the use come again.
+      home: StreamBuilder(
+        stream: FirebaseAuthHelper.instance.getAuthChange,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const Home();
+          }
+          return const Welcome();
+        },
+      ),
     );
   }
 }

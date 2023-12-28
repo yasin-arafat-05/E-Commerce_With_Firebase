@@ -1,4 +1,8 @@
-import 'package:eapp/screens/home/home.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:eapp/constants/constants.dart';
+import 'package:eapp/firebase_helper/firebase_auth/firebase_authelpter.dart';
+import 'package:eapp/screens/auth_ui/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eapp/widgets/top_title/top_titles.dart';
@@ -14,7 +18,10 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool showPass = true;
-  var changeIcon = const Icon(Icons.visibility_off);
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +43,7 @@ class _SignUpState extends State<SignUp> {
               ),
               //-----------------------Text Form Field -> Name ---------------------
               TextFormField(
+                controller: _name,
                 decoration: const InputDecoration(
                   hintText: "Name",
                   prefixIcon: Icon(Icons.person_2_outlined),
@@ -46,6 +54,7 @@ class _SignUpState extends State<SignUp> {
               ),
               //-----------------------Text Form Field -> E-mail ---------------------
               TextFormField(
+                controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: "E-mail",
@@ -57,6 +66,7 @@ class _SignUpState extends State<SignUp> {
               ),
               //-----------------------Text Form Field -> Phone ---------------------
               TextFormField(
+                controller: _phone,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: "Phone",
@@ -70,6 +80,7 @@ class _SignUpState extends State<SignUp> {
               ),
               //-----------------------Text Form Field -> Password ---------------------
               TextFormField(
+                controller: _password,
                 obscureText: showPass,
                 decoration: InputDecoration(
                   hintText: "Password",
@@ -77,15 +88,13 @@ class _SignUpState extends State<SignUp> {
                     Icons.password_outlined,
                   ),
                   suffixIcon: CupertinoButton(
-                    child: changeIcon,
+                    child: Icon(
+                      showPass ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.grey,
+                    ),
                     onPressed: () {
                       setState(() {
                         showPass = !showPass;
-                        if (showPass) {
-                          changeIcon = const Icon(Icons.visibility);
-                        } else {
-                          changeIcon = const Icon(Icons.visibility_off);
-                        }
                       });
                     },
                   ),
@@ -94,11 +103,19 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(
                 height: 15,
               ),
-              //-----------------------Submit Button ---------------------
+              //-----------------------Create an account ---------------------
               PrimaryButtion(
                 title: "Create an account",
-                onPressed: () {
-                  Routes.instance.pushAndRemoveUntill(const Home(), context);
+                onPressed: () async {
+                  bool isValided = signUpValidation(
+                      _name.text, _email.text, _phone.text, _password.text);
+                  if (isValided) {
+                    bool isLogIn = await FirebaseAuthHelper.instance
+                        .signUp(context, _email.text, _password.text);
+                    if (isLogIn) {
+                      Routes.instance.push(const LogIn(), context);
+                    }
+                  }
                 },
               ),
               //--------------------------don't have an account or bla bla-----------
@@ -111,7 +128,7 @@ class _SignUpState extends State<SignUp> {
               Center(
                 child: CupertinoButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Routes.instance.push(const LogIn(), context);
                   },
                   child: const Text("Login"),
                 ),

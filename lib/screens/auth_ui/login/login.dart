@@ -1,3 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:eapp/constants/constants.dart';
+import 'package:eapp/constants/routes.dart';
+import 'package:eapp/firebase_helper/firebase_auth/firebase_authelpter.dart';
+import 'package:eapp/screens/auth_ui/sign_up/sign_up.dart';
+import 'package:eapp/screens/home/home.dart';
 import 'package:eapp/widgets/primary_buttion/primary_buttion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +19,8 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   bool isShowPassword = true;
-  var changeIcon = const Icon(Icons.visibility_off);
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,7 @@ class _LogInState extends State<LogIn> {
             //--------------------------Text Form Field------------------------
             //--------------For E-mail----------------
             TextFormField(
+              controller: _email,
               decoration: const InputDecoration(
                 hintText: "E-mail",
                 prefixIcon: Icon(
@@ -48,6 +57,7 @@ class _LogInState extends State<LogIn> {
               height: 15,
             ),
             TextFormField(
+              controller: _password,
               obscureText: isShowPassword,
               decoration: InputDecoration(
                 hintText: "Password",
@@ -58,14 +68,12 @@ class _LogInState extends State<LogIn> {
                   onPressed: () {
                     setState(() {
                       isShowPassword = !isShowPassword;
-                      if (isShowPassword) {
-                        changeIcon = const Icon(Icons.visibility);
-                      } else {
-                        changeIcon = const Icon(Icons.visibility_off);
-                      }
                     });
                   },
-                  child: changeIcon,
+                  child: Icon(
+                    isShowPassword ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ),
@@ -75,7 +83,16 @@ class _LogInState extends State<LogIn> {
             ),
             PrimaryButtion(
               title: "Submit",
-              onPressed: () {},
+              onPressed: () async {
+                bool isValided = loginValidation(_email.text, _password.text);
+                if (isValided) {
+                  bool isLogin = await FirebaseAuthHelper.instance
+                      .login(_email.text, _password.text, context);
+                  if (isLogin) {
+                    Routes.instance.pushAndRemoveUntill(const Home(), context);
+                  }
+                }
+              },
             ),
             //--------------------------don't have an account or bla bla-----------
             const SizedBox(
@@ -86,11 +103,12 @@ class _LogInState extends State<LogIn> {
             ),
             Center(
               child: CupertinoButton(
-                onPressed: () {},
+                onPressed: () {
+                  Routes.instance.pushAndRemoveUntill(const SignUp(), context);
+                },
                 child: const Text("Create an account"),
               ),
             ),
-            
           ],
         ),
       ),

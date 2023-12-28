@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "290847060639",
+    "project_id": "blink-fb047",
+    "storage_bucket": "blink-fb047.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290847060639:android:e8e858e933e8bc301da8aa",
+        "android_client_info": {
+          "package_name": "com.example.eapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArfZZ9BGXaq2Tm4rC52_DLxr4HYRdcS7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
