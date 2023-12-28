@@ -27,6 +27,8 @@ class _LogInState extends State<LogIn> {
     //In Flutter, the Scaffold widget is a fundamental
     //and highly important widget for building the structure of an app's user interface.
     return Scaffold(
+      //When keyboard will appear it will touch some my widges and that give me 
+      // overflow error to solve this we use resizeToAvoidBottomInset.
       resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(12),
