@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyArfZZ9BGXaq2Tm4rC52_DLxr4HYRdcS7E',
-    appId: '1:290847060639:android:e8e858e933e8bc301da8aa',
-    messagingSenderId: '290847060639',
-    projectId: 'blink-fb047',
-    storageBucket: 'blink-fb047.appspot.com',
+    apiKey: 'AIzaSyBRMj3kuMQq6RJ8BISpeOXwfsRXCu_iayE',
+    appId: '1:585329632597:android:908ed41baec61248237bdc',
+    messagingSenderId: '585329632597',
+    projectId: 'blink-7ef3e',
+    storageBucket: 'blink-7ef3e.appspot.com',
   );
 }

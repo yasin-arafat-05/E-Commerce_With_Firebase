@@ -27,4 +27,18 @@ ThemeData themeData = ThemeData(
         borderSide: BorderSide(color: Colors.grey),
         borderRadius: BorderRadius.all(Radius.circular(2.0))),
   ),
+
+  //outline button theme
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      side: const BorderSide(
+        color: Colors.red,
+        width: 3.0,
+      ),
+      textStyle: const TextStyle(
+        color: Colors.red,
+        fontSize: 18,
+      ),
+    ),
+  ),
 );
