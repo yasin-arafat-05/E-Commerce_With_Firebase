@@ -96,7 +96,7 @@ they serve different purposes and have different timings in the widget lifecycle
                     const SizedBox(
                       height: 5,
                     ),
-                    //--------------------------------- Categories TEXXT -----------------
+                    //----------------------- Categories TEXXT -----------------
                     const Padding(
                       padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
                       child: Text(
@@ -107,14 +107,14 @@ they serve different purposes and have different timings in the widget lifecycle
                         ),
                       ),
                     ),
-                    //--------------------------------- Categories Box----------------
-                    //------------------------This is new to me explanation------------
+                    //--------------------------- Categories Box----------------
+                    //-----------------This is new to me explanation------------
                     /*
-                                This code creates a horizontally scrollable row of cards.
+                    This code creates a horizontally scrollable row of cards.
                     
-                                Here, map is used to transform each element e in categoryList into a Padding widget. 
-                                In Dart, the map function is commonly used to transform elements of one iterable 
-                                into another iterable. It doesn't necessarily require key-value pairs.
+                    Here, map is used to transform each element e in categoryList into a Padding widget. 
+                    In Dart, the map function is commonly used to transform elements of one iterable 
+                    nto another iterable. It doesn't necessarily require key-value pairs.
                     
                                 
                     In Dart, map returns an iterable, not a list. The toList() method 
@@ -180,11 +180,11 @@ they serve different purposes and have different timings in the widget lifecycle
                             color: const Color.fromRGBO(244, 67, 54, 1)
                                 .withOpacity(0.3),
                             /*
-                                                       in this container we will degine the the best
-                                                       selling product. 
-                                                       and all the information we get throuth json data
-                                                       from models/products_model 
-                                                      */
+                             in this container we will degine the the best
+                             selling product. 
+                             and all the information we get throuth json data
+                             from models/products_model 
+                           */
                             child: Column(
                               children: [
                                 // ---------first load image--------------

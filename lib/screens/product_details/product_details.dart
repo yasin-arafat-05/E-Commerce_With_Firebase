@@ -1,6 +1,11 @@
+import 'package:eapp/constants/constants.dart';
 import 'package:eapp/models/products_model/product_model.dart';
+import 'package:eapp/provider/app_provider.dart';
+import 'package:eapp/screens/cart_screen/cart_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:eapp/constants/routes.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
   final ProductModel singleproductModel;
@@ -18,7 +23,9 @@ class _ProductDetailsState extends State<ProductDetails> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Routes.instance.push(const CartScreen(), context);
+            },
             icon: const Icon(Icons.shopping_cart),
           ),
         ],
@@ -122,8 +129,22 @@ class _ProductDetailsState extends State<ProductDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
-                  onPressed: () {},
-                  child: const Text("Add To Cart"),
+                  onPressed: () {
+                    /*
+                      Provider.of(context) is used to obtain the 
+                      current instance of the AppProvider class from the widget tree.
+
+                      listen: false is used to indicate that the widget does 
+                      not need to rebuild when the AppProvider state changes. 
+                      This is set to false because the widget does not depend 
+                      on changes in the AppProvider for its UI.
+                    */
+                    AppProvider appProvider =
+                        Provider.of(context, listen: false);
+                    appProvider.addCartProduct(widget.singleproductModel);
+                    showMessge("ADD TO CART");
+                  },
+                  child: const Text("ADD TO CART"),
                 ),
                 const SizedBox(
                   width: 20,

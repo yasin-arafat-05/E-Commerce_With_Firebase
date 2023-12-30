@@ -1,4 +1,5 @@
 import 'package:eapp/constants/theme.dart';
+import 'package:eapp/provider/app_provider.dart';
 import 'package:eapp/screens/auth_ui/welcome/welcome.dart';
 import 'package:eapp/screens/home/home.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:eapp/firebase_helper/firebase_auth/firebase_authelpter.dart';
 
 //firebase connection
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -23,20 +25,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'YAKULU',
-      theme: themeData,
-      //After login if a user get out from the app StreamBuilder
-      // helps to login the app when the use come again.
-      home: StreamBuilder(
-        stream: FirebaseAuthHelper.instance.getAuthChange,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const Home();
-          }
-          return const Welcome();
-        },
+    return ChangeNotifierProvider(
+      create: (context) => AppProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'YAKULU',
+        theme: themeData,
+        //After login if a user get out from the app StreamBuilder
+        // helps to login the app when the use come again.
+        home: StreamBuilder(
+          stream: FirebaseAuthHelper.instance.getAuthChange,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const Home();
+            }
+            return const Welcome();
+          },
+        ),
       ),
     );
   }
