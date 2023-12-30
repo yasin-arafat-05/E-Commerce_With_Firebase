@@ -12,7 +12,6 @@ class ProductModel {
   String price;
   String description;
   String status;
-  bool isFavourite;
 
   ProductModel({
     required this.id,
@@ -21,17 +20,15 @@ class ProductModel {
     required this.price,
     required this.description,
     required this.status,
-    required this.isFavourite,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
         image: json["image"],
-        name: json["name"],
-        price: json["price"],
-        description: json["description"],
-        status: json["status"],
-        isFavourite: false,
+        name: json["name"] ?? "",
+        price: "23",
+        description: "des",
+        status: 'k',
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +38,5 @@ class ProductModel {
         "price": price,
         "description": description,
         "status": status,
-        "isFavourite": isFavourite,
       };
 }

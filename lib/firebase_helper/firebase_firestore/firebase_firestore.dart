@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eapp/constants/constants.dart';
 import 'package:eapp/models/category_model/category_model.dart';
+import 'package:eapp/models/products_model/product_model.dart';
 
 class FirebaseFirestoreHelper {
   static FirebaseFirestoreHelper instance = FirebaseFirestoreHelper();
@@ -38,6 +39,22 @@ class FirebaseFirestoreHelper {
           .map((e) => CategoryModel.fromJson(e.data()))
           .toList();
       return categoriestList;
+    } catch (e) {
+      showMessge(e.toString());
+      return [];
+    }
+  }
+
+  //------------------------------ Get Best Selling ----------------------------
+
+  Future<List<ProductModel>> bestSelling() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await firebaseFirestore.collection('/CollectionProduct').get();
+      List<ProductModel> productList = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data()))
+          .toList();
+      return productList;
     } catch (e) {
       showMessge(e.toString());
       return [];
