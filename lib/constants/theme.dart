@@ -41,4 +41,12 @@ ThemeData themeData = ThemeData(
       ),
     ),
   ),
+
+  //appbar theme
+  appBarTheme: const AppBarTheme(
+      color: Colors.white,
+      elevation: 0.0,
+      iconTheme: IconThemeData(
+        color: Colors.black,
+      )),
 );

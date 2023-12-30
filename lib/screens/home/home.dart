@@ -1,4 +1,6 @@
+import 'package:eapp/constants/routes.dart';
 import 'package:eapp/firebase_helper/firebase_firestore/firebase_firestore.dart';
+import 'package:eapp/screens/product_details/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:eapp/models/category_model/category_model.dart';
 import 'package:eapp/models/products_model/product_model.dart';
@@ -221,7 +223,13 @@ they serve different purposes and have different timings in the widget lifecycle
                                   height: 50,
                                   width: 100,
                                   child: OutlinedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Routes.instance.push(
+                                          ProductDetails(
+                                              singleproductModel:
+                                                  singleProduct),
+                                          context);
+                                    },
                                     child: const Text(
                                       "Buy",
                                     ),
