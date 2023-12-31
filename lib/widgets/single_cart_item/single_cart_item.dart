@@ -16,7 +16,15 @@ class SingleCartItem extends StatefulWidget {
 class _SingleCartItemState extends State<SingleCartItem> {
   int qnty = 1;
   @override
+  void initState() {
+    qnty = widget.singleProduct.quntity ?? 1;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //instance of state management class
+    AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -107,12 +115,28 @@ class _SingleCartItemState extends State<SingleCartItem> {
                     ),
                     //--------------------WishList Buttion----------------
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {},
-                          child: const Text("Add to wishlist"),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              widget.singleProduct.isFavourite =
+                                  !widget.singleProduct.isFavourite;
+                            });
+                            if (widget.singleProduct.isFavourite) {
+                              appProvider
+                                  .addFavouriteProduct(widget.singleProduct);
+                            } else {
+                              appProvider
+                                  .removeFavouriteProduct(widget.singleProduct);
+                            }
+                          },
+                          icon: Icon(
+                            appProvider.getFavouriteIconList
+                                    .contains(widget.singleProduct)
+                                ? Icons.favorite
+                                : Icons.favorite_outline,
+                          ),
                         ),
                         //--------------------Delete Buttion----------------
                         CupertinoButton(
@@ -126,9 +150,6 @@ class _SingleCartItemState extends State<SingleCartItem> {
                               ),
                             ),
                             onPressed: () {
-                              AppProvider appProvider =
-                                  Provider.of<AppProvider>(context,
-                                      listen: false);
                               appProvider
                                   .removeCartProduct(widget.singleProduct);
                               showMessge("Remove from Card");

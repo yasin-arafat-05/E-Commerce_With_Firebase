@@ -2,6 +2,7 @@ import 'package:eapp/constants/constants.dart';
 import 'package:eapp/models/products_model/product_model.dart';
 import 'package:eapp/provider/app_provider.dart';
 import 'package:eapp/screens/cart_screen/cart_screen.dart';
+import 'package:eapp/screens/favourite_screen/favourite_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eapp/constants/routes.dart';
@@ -19,6 +20,16 @@ class _ProductDetailsState extends State<ProductDetails> {
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
+    /*
+  Provider.of(context) is used to obtain the 
+  current instance of the AppProvider class from the widget tree.
+
+  listen: false is used to indicate that the widget does 
+  not need to rebuild when the AppProvider state changes. 
+  This is set to false because the widget does not depend 
+  on changes in the AppProvider for its UI.
+  */
+    AppProvider appProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -60,9 +71,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                       widget.singleproductModel.isFavourite =
                           !widget.singleproductModel.isFavourite;
                     });
+                    if (widget.singleproductModel.isFavourite) {
+                      appProvider
+                          .addFavouriteProduct(widget.singleproductModel);
+                    } else {
+                      appProvider
+                          .removeFavouriteProduct(widget.singleproductModel);
+                    }
                   },
                   icon: Icon(
-                    widget.singleproductModel.isFavourite
+                    appProvider.getFavouriteIconList
+                            .contains(widget.singleproductModel)
                         ? Icons.favorite
                         : Icons.favorite_outline,
                   ),
@@ -130,19 +149,11 @@ class _ProductDetailsState extends State<ProductDetails> {
               children: [
                 OutlinedButton(
                   onPressed: () {
-                    /*
-                      Provider.of(context) is used to obtain the 
-                      current instance of the AppProvider class from the widget tree.
-
-                      listen: false is used to indicate that the widget does 
-                      not need to rebuild when the AppProvider state changes. 
-                      This is set to false because the widget does not depend 
-                      on changes in the AppProvider for its UI.
-                    */
-                    AppProvider appProvider =
-                        Provider.of(context, listen: false);
-                    appProvider.addCartProduct(widget.singleproductModel);
-                    showMessge("ADD TO CART");
+                    // To send the value of the  number of quantity.
+                    ProductModel productModel =
+                        widget.singleproductModel.copyWith(quntity: quantity);
+                    appProvider.addCartProduct(productModel);
+                    showMessge("ADDED TO CART");
                   },
                   child: const Text("ADD TO CART"),
                 ),
@@ -153,7 +164,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   height: 40,
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Routes.instance.push(const FavouriteScreen(), context);
+                    },
                     child: const Text("BUY"),
                   ),
                 ),

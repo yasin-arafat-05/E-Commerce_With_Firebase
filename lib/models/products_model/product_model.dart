@@ -1,3 +1,5 @@
+// ignore_for_file: override_on_non_overriding_member
+
 import 'dart:convert';
 
 ProductModel temperaturesFromJson(String str) =>
@@ -13,8 +15,9 @@ class ProductModel {
   String description;
   String status;
   bool isFavourite;
-
+  int? quntity;
   ProductModel({
+    this.quntity,
     required this.id,
     required this.image,
     required this.name,
@@ -41,5 +44,22 @@ class ProductModel {
         "price": price,
         "description": description,
         "status": status,
+        "quntity": quntity,
       };
+
+  // To validate the quantity while adding product in cart.
+  // for more search -> model copy in flutter.
+  @override
+  ProductModel copyWith({
+    int? quntity,
+  }) =>
+      ProductModel(
+          id: id,
+          image: image,
+          name: name,
+          price: price,
+          description: description,
+          status: status,
+          isFavourite: isFavourite,
+          quntity: quntity ?? this.quntity);
 }

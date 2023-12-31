@@ -24,6 +24,20 @@ class AppProvider extends ChangeNotifier {
   For _(usersore and final ) we can't use it other class 
   simply its a  getter method.
   */
-
   List<ProductModel> get getCartProductList => _cartProductList;
+
+  //---------------Now state management for favourite icon---------------------
+  final List<ProductModel> _favouriteIconList = [];
+  void addFavouriteProduct(ProductModel productModel) {
+    _favouriteIconList.add(productModel);
+    notifyListeners();
+  }
+
+  // state management for removing favourite icon
+  void removeFavouriteProduct(ProductModel productModel) {
+    _favouriteIconList.remove(productModel);
+    notifyListeners();
+  }
+
+  List<ProductModel> get getFavouriteIconList => _favouriteIconList;
 }
