@@ -43,140 +43,146 @@ class _ProductDetailsState extends State<ProductDetails> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //------------------------------Load Image-------------------------
-            Image.network(
-              widget.singleproductModel.image,
-              height: 300,
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            //---------------Get Product Name and Favourite --------------------
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.singleproductModel.name,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      widget.singleproductModel.isFavourite =
-                          !widget.singleproductModel.isFavourite;
-                    });
-                    if (widget.singleproductModel.isFavourite) {
-                      appProvider
-                          .addFavouriteProduct(widget.singleproductModel);
-                    } else {
-                      appProvider
-                          .removeFavouriteProduct(widget.singleproductModel);
-                    }
-                  },
-                  icon: Icon(
-                    appProvider.getFavouriteIconList
-                            .contains(widget.singleproductModel)
-                        ? Icons.favorite
-                        : Icons.favorite_outline,
-                  ),
-                ),
-              ],
-            ),
-            //------------------------------Get Product price-------------------
-            Text(
-              "Price: \$ ${widget.singleproductModel.price}",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //------------------------------Load Image-------------------------
+              Image.network(
+                widget.singleproductModel.image,
+                height: 300,
               ),
-            ),
-            //------------------------Get Product Description-------------------
-            Text(widget.singleproductModel.description),
-            //--------------Button For order Plus Quentity Minus----------------
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                CupertinoButton(
-                  borderRadius: BorderRadius.circular(50),
-                  padding: const EdgeInsets.all(0),
-                  color: Colors.red.withOpacity(0.8),
-                  child: const Icon(Icons.remove),
-                  onPressed: () {
-                    setState(() {
-                      if (quantity > 1) {
-                        quantity--;
-                      }
-                    });
-                  },
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  quantity.toString(),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              const SizedBox(
+                height: 5,
+              ),
+              //---------------Get Product Name and Favourite --------------------
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.singleproductModel.name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                CupertinoButton(
-                  borderRadius: BorderRadius.circular(50),
-                  padding: const EdgeInsets.all(0),
-                  color: Colors.red.withOpacity(0.8),
-                  child: const Icon(Icons.add),
-                  onPressed: () {
-                    setState(() {
-                      quantity++;
-                    });
-                  },
-                ),
-              ],
-            ),
-            //----------------Button For Add to cart and buy--------------------
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    // To send the value of the  number of quantity.
-                    ProductModel productModel =
-                        widget.singleproductModel.copyWith(quntity: quantity);
-                    appProvider.addCartProduct(productModel);
-                    showMessge("ADDED TO CART");
-                  },
-                  child: const Text("ADD TO CART"),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 150,
-                  child: ElevatedButton(
+                  IconButton(
                     onPressed: () {
-                      Routes.instance.push(const FavouriteScreen(), context);
+                      setState(() {
+                        widget.singleproductModel.isFavourite =
+                            !widget.singleproductModel.isFavourite;
+                      });
+                      if (widget.singleproductModel.isFavourite) {
+                        appProvider
+                            .addFavouriteProduct(widget.singleproductModel);
+                      } else {
+                        appProvider
+                            .removeFavouriteProduct(widget.singleproductModel);
+                      }
                     },
-                    child: const Text("BUY"),
+                    icon: Icon(
+                      appProvider.getFavouriteIconList
+                              .contains(widget.singleproductModel)
+                          ? Icons.favorite
+                          : Icons.favorite_outline,
+                    ),
                   ),
+                ],
+              ),
+              //------------------------------Get Product price-------------------
+              Text(
+                "Price: \$ ${widget.singleproductModel.price}",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-              width: double.infinity,
-            )
-          ],
+              ),
+              //------------------------Get Product Description-------------------
+              Text(widget.singleproductModel.description),
+              //--------------Button For order Plus Quentity Minus----------------
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  CupertinoButton(
+                    borderRadius: BorderRadius.circular(50),
+                    padding: const EdgeInsets.all(0),
+                    color: Colors.red.withOpacity(0.8),
+                    child: const Icon(Icons.remove),
+                    onPressed: () {
+                      setState(() {
+                        if (quantity > 1) {
+                          quantity--;
+                        }
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    quantity.toString(),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  CupertinoButton(
+                    borderRadius: BorderRadius.circular(50),
+                    padding: const EdgeInsets.all(0),
+                    color: Colors.red.withOpacity(0.8),
+                    child: const Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        quantity++;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              //----------------Button For Add to cart and buy--------------------
+              const SizedBox(
+                width: double.infinity,
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      // To send the value of the  number of quantity.
+                      ProductModel productModel =
+                          widget.singleproductModel.copyWith(quntity: quantity);
+                      appProvider.addCartProduct(productModel);
+                      showMessge("ADDED TO CART");
+                    },
+                    child: const Text("ADD TO CART"),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: 160,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Routes.instance.push(const FavouriteScreen(), context);
+                      },
+                      child: const Text("BUY"),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 100,
+                width: double.infinity,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -241,6 +241,11 @@ they serve different purposes and have different timings in the widget lifecycle
                         },
                       ),
                     ),
+                    // ---- for bottom bar ---------
+                    const SizedBox(
+                      height: 100,
+                      width: double.infinity,
+                    )
                   ],
                 ),
               ),

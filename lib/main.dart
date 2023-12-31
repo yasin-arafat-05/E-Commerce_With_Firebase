@@ -1,11 +1,9 @@
 import 'package:eapp/constants/theme.dart';
 import 'package:eapp/provider/app_provider.dart';
 import 'package:eapp/screens/auth_ui/welcome/welcome.dart';
-import 'package:eapp/screens/home/home.dart';
+import 'package:eapp/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:eapp/firebase_helper/firebase_auth/firebase_authelpter.dart';
-
-//firebase connection
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -37,7 +35,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuthHelper.instance.getAuthChange,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const Home();
+              return const CustomBottomBar();
             }
             return const Welcome();
           },
